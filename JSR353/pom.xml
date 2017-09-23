@@ -48,7 +48,6 @@
         <dependency>
             <groupId>org.gisobject.tutorial.restapi</groupId>
             <artifactId>common</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
