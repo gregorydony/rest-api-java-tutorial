@@ -11,6 +11,7 @@
 
     <modules>
         <module>common</module>
+        <module>common-test</module>
         <module>Jackson</module>
         <module>JSR353</module>
     </modules>
@@ -27,6 +28,14 @@
                 <groupId>org.gisobject.tutorial.restapi</groupId>
                 <artifactId>common</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <!-- dependency to common-test module-->
+            <dependency>
+                <groupId>org.gisobject.tutorial.restapi</groupId>
+                <artifactId>common-test</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
             </dependency>
             
             <!--dependencies for JSR 353-->

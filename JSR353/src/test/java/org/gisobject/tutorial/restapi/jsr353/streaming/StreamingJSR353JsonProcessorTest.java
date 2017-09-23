@@ -16,7 +16,7 @@ import static org.gisobject.tutorial.restapi.jsr353.streaming.StreamingJSR353Jso
  */
 public class StreamingJSR353JsonProcessorTest {
 
-    String jsonFileName ="emp-array.json";
+    String jsonFileName = "emp-array.json";
 
     @Test
     public void testObjectToJsonMapping() {

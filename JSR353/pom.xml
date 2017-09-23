@@ -50,5 +50,11 @@
             <artifactId>common</artifactId>
         </dependency>
 
+        <!-- dependency to common-test module-->
+        <dependency>
+            <groupId>org.gisobject.tutorial.restapi</groupId>
+            <artifactId>common-test</artifactId>
+        </dependency>
+
     </dependencies>
 </project>
