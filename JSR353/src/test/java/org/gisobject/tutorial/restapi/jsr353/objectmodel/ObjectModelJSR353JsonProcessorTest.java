@@ -20,7 +20,7 @@ public class ObjectModelJSR353JsonProcessorTest {
     public void testObjectToJsonMapping() throws IOException {
         List<Employee> employees;
 
-        try (InputStream inputStream = ObjectModelJSR353JsonProcessor.class.getClassLoader().getResourceAsStream("emp-array.json")) {
+        try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("emp-array.json")) {
             employees = OBJECT_MODEL_JSON_PROCESSOR.readJson(inputStream);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);

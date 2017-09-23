@@ -1,7 +1,6 @@
 package org.gisobject.tutorial.restapi.jsr353.streaming;
 
 import org.gisobject.tutorial.restapi.bean.Employee;
-import org.gisobject.tutorial.restapi.jsr353.objectmodel.ObjectModelJSR353JsonProcessor;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -18,10 +17,11 @@ import static org.gisobject.tutorial.restapi.jsr353.streaming.StreamingJSR353Jso
 public class StreamingJSR353JsonProcessorTest {
 
     String jsonFileName ="emp-array.json";
+
     @Test
     public void testObjectToJsonMapping() {
         List<Employee> employees;
-        try (InputStream inputStream = ObjectModelJSR353JsonProcessor.class.getClassLoader().getResourceAsStream(jsonFileName)) {
+        try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(jsonFileName)) {
             employees = STREAMING_JSON_PROCESSOR.readJson(inputStream);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
