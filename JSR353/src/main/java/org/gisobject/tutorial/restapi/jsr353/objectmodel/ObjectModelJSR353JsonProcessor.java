@@ -55,7 +55,10 @@ public enum ObjectModelJSR353JsonProcessor implements JSR353JsonProcessor<Employ
 
     @Override
     public void writeJson(List<Employee> input, OutputStream os) {
-
+        try (JsonWriter jsonWriter = Json.createWriter(os)) {
+            JsonArray jsonArray = toJson(input);
+            jsonWriter.writeArray(jsonArray);
+        }
     }
 
     @Override
