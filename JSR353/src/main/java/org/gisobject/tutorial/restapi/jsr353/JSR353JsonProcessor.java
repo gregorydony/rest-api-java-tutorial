@@ -1,4 +1,4 @@
-package org.gisobject.tutorial.restapi;
+package org.gisobject.tutorial.restapi.jsr353;
 
 
 import org.gisobject.tutorial.restapi.json.JsonProcessor;

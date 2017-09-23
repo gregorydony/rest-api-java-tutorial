@@ -1,6 +1,6 @@
 package org.gisobject.tutorial.restapi.jsr353.streaming;
 
-import org.gisobject.tutorial.restapi.JSR353JsonProcessor;
+import org.gisobject.tutorial.restapi.jsr353.JSR353JsonProcessor;
 import org.gisobject.tutorial.restapi.bean.Employee;
 
 import javax.json.Json;
