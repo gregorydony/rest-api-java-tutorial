@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.gisobject.tutorial.restapi.jsr353.objectmodel.ObjectModelJSR353JsonProcessor.OBJECT_MODEL_JSON_PROCESSOR;
+import static org.gisobject.tutorial.restapi.test.TestResource.EMPLOYEE_ARRAY;
 
 /**
  * Created by GIS Object on 27/08/2017.
@@ -20,7 +21,7 @@ public class ObjectModelJSR353JsonProcessorTest {
     public void testObjectToJsonMapping() throws IOException {
         List<Employee> employees;
 
-        try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("emp-array.json")) {
+        try (InputStream inputStream = EMPLOYEE_ARRAY.toInputStream()) {
             employees = OBJECT_MODEL_JSON_PROCESSOR.readJson(inputStream);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);

@@ -8,16 +8,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import static org.gisobject.tutorial.restapi.test.TestResource.EMPLOYEE_ARRAY;
+
 /**
  * Created by GIS Object on 23/09/2017.
  */
 class TreeModelJacksonJsonProcessorTest {
 
-    String jsonFileName ="emp-array.json";
-
     public void testObjectToJsonMapping() {
         List<Employee> employees;
-        try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(jsonFileName)) {
+        try (InputStream inputStream = EMPLOYEE_ARRAY.toInputStream()) {
             //Create a ObjectMapper instance
             //ObjectMapper provides functionality for creating tree
             ObjectMapper objectMapper = new ObjectMapper();

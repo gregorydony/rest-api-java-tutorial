@@ -10,18 +10,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.gisobject.tutorial.restapi.jsr353.streaming.StreamingJSR353JsonProcessor.STREAMING_JSON_PROCESSOR;
+import static org.gisobject.tutorial.restapi.test.TestResource.EMPLOYEE_ARRAY;
 
 /**
  * Created by GIS Object on 27/08/2017.
  */
 public class StreamingJSR353JsonProcessorTest {
 
-    String jsonFileName = "emp-array.json";
-
     @Test
     public void testObjectToJsonMapping() {
         List<Employee> employees;
-        try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(jsonFileName)) {
+        try (InputStream inputStream = EMPLOYEE_ARRAY.toInputStream()) {
             employees = STREAMING_JSON_PROCESSOR.readJson(inputStream);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
