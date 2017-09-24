@@ -17,7 +17,7 @@ class TreeModelJacksonJsonProcessorTest {
 
     public void testObjectToJsonMapping() {
         List<Employee> employees;
-        try (InputStream inputStream = EMPLOYEE_ARRAY.toInputStream()) {
+        try (InputStream inputStream = EMPLOYEE_ARRAY.asInputStream()) {
             //Create a ObjectMapper instance
             //ObjectMapper provides functionality for creating tree
             ObjectMapper objectMapper = new ObjectMapper();

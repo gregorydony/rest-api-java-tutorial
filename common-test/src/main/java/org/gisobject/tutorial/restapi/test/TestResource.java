@@ -1,22 +1,39 @@
 package org.gisobject.tutorial.restapi.test;
 
-import sun.net.TelnetOutputStream;
-
+import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 public enum TestResource {
 
-    EMPLOYEE_ARRAY ("emp-array.json"),
+    EMPLOYEE_ARRAY("emp-array.json"),
     ;
+
+    private static ConcurrentHashMap<TestResource, String> contentCache = new ConcurrentHashMap<>();
 
     private String resourceLocation;
 
-    TestResource(String resourceLocation) {
+    TestResource(@NotNull String resourceLocation) {
         this.resourceLocation = resourceLocation;
     }
 
-    public InputStream toInputStream () {
+    public InputStream asInputStream() {
         return this.getClass().getClassLoader().getResourceAsStream(resourceLocation);
+    }
+
+    public String asString() {
+        return contentCache.computeIfAbsent(this, new Function<>() {
+            public String apply(TestResource testResource) {
+                try (InputStream inputStream = asInputStream()) {
+                    return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+                } catch (IOException ioe) {
+                    throw new IllegalStateException("Unable to read " + this);
+                }
+            }
+        });
     }
 
 

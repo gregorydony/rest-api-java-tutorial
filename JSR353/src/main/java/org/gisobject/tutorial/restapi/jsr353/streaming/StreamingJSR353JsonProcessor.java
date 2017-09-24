@@ -44,6 +44,7 @@ public enum StreamingJSR353JsonProcessor implements JSR353JsonProcessor<Employee
                         .write(JSR353JsonProcessor.EMPLOYEE_ID, employee.getEmployeeId())
                         .write(JSR353JsonProcessor.FIRST_NAME, employee.getFirstName())
                         .write(JSR353JsonProcessor.LAST_NAME, employee.getLastName())
+                        .write(JSR353JsonProcessor.EMAIL, employee.getEmail())
                         .write(JSR353JsonProcessor.HIRE_DATE, dateFormat.format(employee.getHireDate())).writeEnd();
             }
             jsonGenerator.writeEnd();
