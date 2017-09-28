@@ -64,11 +64,11 @@ public enum StreamingJSR353JsonProcessor implements EmployeeJsonProcessor, JSR35
 
     @Override
     public JsonArray toJson(@NotNull List<Employee> employees) {
-        return null;
+        throw new AssertionError ("Not implemented");
     }
 
     @Override
     public JsonObject toJson(@NotNull Employee employee) {
-        return null;
+        throw new AssertionError ("Not implemented");
     }
 }

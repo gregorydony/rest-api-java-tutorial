@@ -2,13 +2,20 @@ package org.gisobject.tutorial.restapi.jackson.treemodel;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.gisobject.tutorial.restapi.bean.Employee;
 import org.gisobject.tutorial.restapi.jackson.JacksonJsonProcessor;
 import org.gisobject.tutorial.restapi.json.EmployeeJsonProcessor;
 
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,53 +25,81 @@ import java.util.List;
 public enum TreeModelJacksonJsonProcessor implements EmployeeJsonProcessor, JacksonJsonProcessor<Employee> {
 
     TREE_MODEL_JACKSON_JSON_PROCESSOR;
-    
+
+
+
     @Override
-    public List<Employee> readJson(InputStream inputStream) {
-        //Create a ObjectMapper instance
-        //ObjectMapper provides functionality for creating tree
-        ObjectMapper objectMapper = new ObjectMapper();
+    @NotNull
+    public List<Employee> readJson(@NotNull InputStream inputStream) {
         //Read JSON content in to tree
         try {
+            //Create a ObjectMapper instance
+            //ObjectMapper provides functionality for creating tree
+            ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(inputStream);
-            if (rootNode.isArray()) {
-                List<Employee> employees = new ArrayList<>();
-                rootNode.forEach(jsonNode -> employees.add(fromJson(jsonNode)));
-                return employees;
+            if (!rootNode.isArray()) {
+                throw new IllegalArgumentException("Root JsonNode is a " + rootNode.getNodeType() + "but should be an array");
             }
-            throw new IllegalArgumentException("Root JsonNode is a " + rootNode.getNodeType() + "but should be an array");
+            return fromJson((ArrayNode) rootNode);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
     }
 
     @Override
-    public void writeJson(List<Employee> input, OutputStream os) {
+    public void writeJson(@NotNull List<Employee> input, @NotNull OutputStream os) {
+        //Create a ObjectMapper instance
+        //ObjectMapper provides functionality for creating tree
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writeValue(os,toJson(input));
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe);
+        }
 
     }
 
     @Override
-    public Employee fromJson(JsonNode jsonNode) {
+    public Employee fromJson(@NotNull JsonNode jsonNode) {
+        DateFormat dateFormat = new SimpleDateFormat(HIRE_DATE_PATTERN);
         Employee employee = new Employee();
         employee.setEmployeeId(jsonNode.path(EMPLOYEE_ID).asInt());
         employee.setFirstName(jsonNode.path(FIRST_NAME).asText());
         employee.setLastName(jsonNode.path(LAST_NAME).asText());
         employee.setEmail(jsonNode.path(EMAIL).asText());
+        final String strHireDate = jsonNode.path(HIRE_DATE).asText();
+        try {
+            employee.setHireDate(dateFormat.parse(strHireDate));
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Invalid date " + strHireDate);
+        }
         return employee;
     }
 
     @Override
-    public List<Employee> fromJsonArray(JsonNode jsonNode) {
-        return null;
+    public List<Employee> fromJson(@NotNull ArrayNode jsonRootNode) {
+        List<Employee> employees = new ArrayList<>();
+        jsonRootNode.forEach(jsonNode -> employees.add(fromJson(jsonNode)));
+        return employees;
     }
 
     @Override
-    public JsonNode toJson(List<Employee> listOfElements) {
-        return null;
+    @NotNull
+    public ArrayNode toJson(@NotNull List<Employee> listOfElements) {
+        ArrayNode arrayNode = JsonNodeFactory.instance.arrayNode(listOfElements.size());
+        listOfElements.forEach(employee -> arrayNode.add(toJson(employee)));
+        return arrayNode;
     }
 
     @Override
-    public JsonNode toJson(Employee element) {
-        return null;
+    @NotNull
+    public ObjectNode toJson(@NotNull Employee element) {
+        DateFormat dateFormat = new SimpleDateFormat(HIRE_DATE_PATTERN);
+        return JsonNodeFactory.instance.objectNode()
+                .put(EMPLOYEE_ID, element.getEmployeeId())
+                .put(FIRST_NAME, element.getFirstName())
+                .put(LAST_NAME, element.getLastName())
+                .put(EMAIL, element.getEmail())
+                .put(HIRE_DATE, dateFormat.format(element.getHireDate()));
     }
 }

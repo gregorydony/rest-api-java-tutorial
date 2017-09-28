@@ -1,6 +1,8 @@
 package org.gisobject.tutorial.restapi.jackson;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.gisobject.tutorial.restapi.json.JsonProcessor;
 
 import javax.validation.constraints.NotNull;
@@ -25,7 +27,7 @@ public interface JacksonJsonProcessor<E> extends JsonProcessor<E> {
      * @return a list of {@link E}
      */
     @NotNull
-    List<E> fromJsonArray(@NotNull JsonNode jsonNode);
+    List<E> fromJson(@NotNull ArrayNode jsonNode);
 
     /**
      * Maps a list of {@link E} to a {@link JsonNode}
@@ -33,7 +35,7 @@ public interface JacksonJsonProcessor<E> extends JsonProcessor<E> {
      * @return a {@link JsonNode}
      */
     @NotNull
-    JsonNode toJson(@NotNull List<E> listOfElements);
+    ArrayNode toJson(@NotNull List<E> listOfElements);
 
     /**
      * Maps a {@link E} to a {@link JsonNode}.
@@ -41,6 +43,6 @@ public interface JacksonJsonProcessor<E> extends JsonProcessor<E> {
      * @return a {@link JsonNode}
      */
     @NotNull
-    JsonNode toJson(@NotNull E element);
+    ObjectNode toJson(@NotNull E element);
 
 }
