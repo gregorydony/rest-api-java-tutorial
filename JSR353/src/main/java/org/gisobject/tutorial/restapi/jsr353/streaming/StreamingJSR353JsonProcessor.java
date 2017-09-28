@@ -1,5 +1,6 @@
 package org.gisobject.tutorial.restapi.jsr353.streaming;
 
+import org.gisobject.tutorial.restapi.json.EmployeeJsonProcessor;
 import org.gisobject.tutorial.restapi.jsr353.JSR353JsonProcessor;
 import org.gisobject.tutorial.restapi.bean.Employee;
 
@@ -20,7 +21,7 @@ import static org.gisobject.tutorial.restapi.jsr353.objectmodel.ObjectModelJSR35
 /**
  * Created by GIS Object on 27/08/2017.
  */
-public enum StreamingJSR353JsonProcessor implements JSR353JsonProcessor<Employee> {
+public enum StreamingJSR353JsonProcessor implements EmployeeJsonProcessor, JSR353JsonProcessor<Employee> {
 
     STREAMING_JSON_PROCESSOR;
 
@@ -37,15 +38,15 @@ public enum StreamingJSR353JsonProcessor implements JSR353JsonProcessor<Employee
     public void writeJson(List<Employee> employees, OutputStream os) {
         try (JsonGenerator jsonGenerator = Json.createGenerator(os)) {
             jsonGenerator.writeStartArray();
-            DateFormat dateFormat = new SimpleDateFormat(JSR353JsonProcessor.HIRE_DATE_PATTERN);
+            DateFormat dateFormat = new SimpleDateFormat(HIRE_DATE_PATTERN);
             for (Employee employee : employees) {
                 // Writes the JSON object for each Employee object
                 jsonGenerator.writeStartObject()
-                        .write(JSR353JsonProcessor.EMPLOYEE_ID, employee.getEmployeeId())
-                        .write(JSR353JsonProcessor.FIRST_NAME, employee.getFirstName())
-                        .write(JSR353JsonProcessor.LAST_NAME, employee.getLastName())
-                        .write(JSR353JsonProcessor.EMAIL, employee.getEmail())
-                        .write(JSR353JsonProcessor.HIRE_DATE, dateFormat.format(employee.getHireDate())).writeEnd();
+                        .write(EMPLOYEE_ID, employee.getEmployeeId())
+                        .write(FIRST_NAME, employee.getFirstName())
+                        .write(LAST_NAME, employee.getLastName())
+                        .write(EMAIL, employee.getEmail())
+                        .write(HIRE_DATE, dateFormat.format(employee.getHireDate())).writeEnd();
             }
             jsonGenerator.writeEnd();
         }

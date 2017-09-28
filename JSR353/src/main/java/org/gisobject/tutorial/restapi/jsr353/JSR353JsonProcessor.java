@@ -16,13 +16,6 @@ import java.util.List;
  */
 public interface JSR353JsonProcessor<E> extends JsonProcessor<E> {
 
-    String EMPLOYEE_ID = "employeeId";
-    String FIRST_NAME = "firstName";
-    String LAST_NAME = "lastName";
-    String EMAIL = "email";
-    String HIRE_DATE_PATTERN = "yyyy-MM-dd";
-    String HIRE_DATE = "hireDate";
-
     /**
      * Maps a {@link JsonObject} to a instance of {@link E}.
      * @param jsonObject The {@link JsonObject} to convert

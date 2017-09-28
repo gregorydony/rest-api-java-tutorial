@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
 
 public enum TestResource {
 
@@ -25,16 +24,16 @@ public enum TestResource {
     }
 
     public String asString() {
-        return contentCache.computeIfAbsent(this, new Function<>() {
-            public String apply(TestResource testResource) {
-                try (InputStream inputStream = asInputStream()) {
-                    return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-                } catch (IOException ioe) {
-                    throw new IllegalStateException("Unable to read " + this);
-                }
-            }
-        });
+        return contentCache.computeIfAbsent(this, testResource -> toContentString(testResource));
+
     }
 
-
+    private static String toContentString(TestResource testResource) {
+        try (InputStream inputStream = testResource.asInputStream()) {
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (IOException ioe) {
+            throw new IllegalStateException("Unable to read " + testResource);
+        }
+    }
+    
 }
