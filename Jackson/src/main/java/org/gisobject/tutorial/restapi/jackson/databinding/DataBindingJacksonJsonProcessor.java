@@ -23,21 +23,21 @@ public enum DataBindingJacksonJsonProcessor implements EmployeeJsonProcessor, Js
 
     DATA_BINDING_JACKSON_JSON_PROCESSOR;
 
-    ObjectReader objectReader;
+    private transient ObjectReader objectReader;
 
-    ObjectWriter objectWriter;
+    private transient ObjectWriter objectWriter;
 
     DataBindingJacksonJsonProcessor() {
         DateFormat dateFormat =  new SimpleDateFormat(HIRE_DATE_PATTERN);
         ObjectMapper objectMapper = new ObjectMapper();
-        objectReader = objectMapper.reader();
+        objectReader = objectMapper.reader().forType(new TypeReference<List<Employee>>(){});
         objectWriter = objectMapper.writer(dateFormat);
     }
 
     @NotNull
     public List<Employee> readJson(@NotNull InputStream inputStream) {
         try {
-            return objectReader.forType(new TypeReference<List<Employee>>(){}).readValue(inputStream);
+            return objectReader.readValue(inputStream);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
