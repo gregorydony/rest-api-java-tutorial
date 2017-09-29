@@ -35,6 +35,5 @@ public class ObjectModelGsonJsonProcessorTest {
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
-
     }
 }
