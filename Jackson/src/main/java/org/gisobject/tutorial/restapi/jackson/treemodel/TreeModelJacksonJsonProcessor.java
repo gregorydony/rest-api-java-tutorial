@@ -1,7 +1,10 @@
 package org.gisobject.tutorial.restapi.jackson.treemodel;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -26,17 +29,22 @@ public enum TreeModelJacksonJsonProcessor implements EmployeeJsonProcessor, Jack
 
     TREE_MODEL_JACKSON_JSON_PROCESSOR;
 
+    private transient ObjectReader objectReader;
 
+    private transient ObjectWriter objectWriter;
+
+    TreeModelJacksonJsonProcessor() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectReader = objectMapper.reader().forType(new TypeReference<List<Employee>>(){});
+        objectWriter = objectMapper.writer();
+    }
 
     @Override
     @NotNull
     public List<Employee> readJson(@NotNull InputStream inputStream) {
         //Read JSON content in to tree
         try {
-            //Create a ObjectMapper instance
-            //ObjectMapper provides functionality for creating tree
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(inputStream);
+            JsonNode rootNode = objectReader.readTree(inputStream);
             if (!rootNode.isArray()) {
                 throw new IllegalArgumentException("Root JsonNode is a " + rootNode.getNodeType() + "but should be an array");
             }
@@ -48,11 +56,8 @@ public enum TreeModelJacksonJsonProcessor implements EmployeeJsonProcessor, Jack
 
     @Override
     public void writeJson(@NotNull List<Employee> input, @NotNull OutputStream os) {
-        //Create a ObjectMapper instance
-        //ObjectMapper provides functionality for creating tree
-        ObjectMapper objectMapper = new ObjectMapper();
         try {
-            objectMapper.writeValue(os,toJson(input));
+            objectWriter.writeValue(os,toJson(input));
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
