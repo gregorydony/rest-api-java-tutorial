@@ -1,6 +1,6 @@
 package org.gisobject.tutorial.restapi.jsr353.streaming;
 
-import org.gisobject.tutorial.restapi.json.EmployeeJsonProcessor;
+import org.gisobject.tutorial.restapi.json.EmployeeProcessor;
 import org.gisobject.tutorial.restapi.jsr353.JSR353JsonProcessor;
 import org.gisobject.tutorial.restapi.bean.Employee;
 
@@ -21,7 +21,7 @@ import static org.gisobject.tutorial.restapi.jsr353.objectmodel.ObjectModelJSR35
 /**
  * Created by GIS Object on 27/08/2017.
  */
-public enum StreamingJSR353JsonProcessor implements EmployeeJsonProcessor, JSR353JsonProcessor<Employee> {
+public enum StreamingJSR353JsonProcessor implements EmployeeProcessor, JSR353JsonProcessor<Employee> {
 
     STREAMING_JSON_PROCESSOR;
 

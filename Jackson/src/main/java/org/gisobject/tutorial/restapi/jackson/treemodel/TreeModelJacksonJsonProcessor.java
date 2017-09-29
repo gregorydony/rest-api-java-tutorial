@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.gisobject.tutorial.restapi.bean.Employee;
 import org.gisobject.tutorial.restapi.jackson.JacksonJsonProcessor;
-import org.gisobject.tutorial.restapi.json.EmployeeJsonProcessor;
+import org.gisobject.tutorial.restapi.json.EmployeeProcessor;
 
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by GIS Object on 23/09/2017.
  */
-public enum TreeModelJacksonJsonProcessor implements EmployeeJsonProcessor, JacksonJsonProcessor<Employee> {
+public enum TreeModelJacksonJsonProcessor implements EmployeeProcessor, JacksonJsonProcessor<Employee> {
 
     TREE_MODEL_JACKSON_JSON_PROCESSOR;
 

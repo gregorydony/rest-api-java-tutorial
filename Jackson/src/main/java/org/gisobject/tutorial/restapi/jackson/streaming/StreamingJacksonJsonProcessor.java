@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.gisobject.tutorial.restapi.bean.Employee;
-import org.gisobject.tutorial.restapi.json.EmployeeJsonProcessor;
+import org.gisobject.tutorial.restapi.json.EmployeeProcessor;
 import org.gisobject.tutorial.restapi.json.JsonProcessor;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by GIS Object on 29/09/2017.
  */
-public enum StreamingJacksonJsonProcessor implements EmployeeJsonProcessor, JsonProcessor<Employee> {
+public enum StreamingJacksonJsonProcessor implements EmployeeProcessor, JsonProcessor<Employee> {
 
     STREAMING_JACKSON_JSON_PROCESSOR;
 

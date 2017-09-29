@@ -1,7 +1,7 @@
 package org.gisobject.tutorial.restapi.jsr353.objectmodel;
 
 import org.gisobject.tutorial.restapi.bean.Employee;
-import org.gisobject.tutorial.restapi.json.EmployeeJsonProcessor;
+import org.gisobject.tutorial.restapi.json.EmployeeProcessor;
 import org.gisobject.tutorial.restapi.jsr353.JSR353JsonProcessor;
 
 import javax.json.*;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * Created by GIS Object on 27/08/2017.
  */
-public enum ObjectModelJSR353JsonProcessor implements EmployeeJsonProcessor, JSR353JsonProcessor<Employee> {
+public enum ObjectModelJSR353JsonProcessor implements EmployeeProcessor, JSR353JsonProcessor<Employee> {
 
     OBJECT_MODEL_JSON_PROCESSOR;
 

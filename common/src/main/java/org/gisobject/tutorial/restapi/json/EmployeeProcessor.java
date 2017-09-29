@@ -3,7 +3,7 @@ package org.gisobject.tutorial.restapi.json;
 /**
  * Created by GIS Object on 28/09/2017.
  */
-public interface EmployeeJsonProcessor {
+public interface EmployeeProcessor {
     String EMPLOYEE_ID = "employeeId";
     String FIRST_NAME = "firstName";
     String LAST_NAME = "lastName";

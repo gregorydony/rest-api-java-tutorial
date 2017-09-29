@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.gisobject.tutorial.restapi.bean.Employee;
-import org.gisobject.tutorial.restapi.json.EmployeeJsonProcessor;
+import org.gisobject.tutorial.restapi.json.EmployeeProcessor;
 import org.gisobject.tutorial.restapi.json.JsonProcessor;
 
 import javax.validation.constraints.NotNull;
@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by GIS Object on 29/09/2017.
  */
-public enum DataBindingJacksonJsonProcessor implements EmployeeJsonProcessor, JsonProcessor<Employee> {
+public enum DataBindingJacksonJsonProcessor implements EmployeeProcessor, JsonProcessor<Employee> {
 
     DATA_BINDING_JACKSON_JSON_PROCESSOR;
 
