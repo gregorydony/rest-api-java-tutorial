@@ -1,8 +1,8 @@
 package org.gisobject.tutorial.restapi.jsr353.objectmodel;
 
+import org.gisobject.tutorial.restapi.bean.Employee;
 import org.gisobject.tutorial.restapi.json.EmployeeJsonProcessor;
 import org.gisobject.tutorial.restapi.jsr353.JSR353JsonProcessor;
-import org.gisobject.tutorial.restapi.bean.Employee;
 
 import javax.json.*;
 import javax.validation.constraints.NotNull;
@@ -11,8 +11,8 @@ import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by GIS Object on 27/08/2017.
@@ -64,14 +64,8 @@ public enum ObjectModelJSR353JsonProcessor implements EmployeeJsonProcessor, JSR
 
     @Override
     public List<Employee> fromJson(JsonArray jsonArray) {
-        List<Employee> employees = new ArrayList<>();
-        jsonArray.forEach(jsonValue -> {
-            assert (jsonValue.getValueType() == JsonObject.ValueType.OBJECT);
-            employees.add(OBJECT_MODEL_JSON_PROCESSOR.fromJson(jsonValue.asJsonObject()));
-        });
-        return employees;
+        return jsonArray.stream().map(jsonValue -> OBJECT_MODEL_JSON_PROCESSOR.fromJson(jsonValue.asJsonObject())).collect(Collectors.toList());
     }
-
 
 
     @Override

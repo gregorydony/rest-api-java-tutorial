@@ -16,6 +16,7 @@ import java.util.List;
  */
 public interface JSR353JsonProcessor<E> extends JsonProcessor<E> {
 
+
     /**
      * Maps a {@link JsonObject} to a instance of {@link E}.
      * @param jsonObject The {@link JsonObject} to convert
