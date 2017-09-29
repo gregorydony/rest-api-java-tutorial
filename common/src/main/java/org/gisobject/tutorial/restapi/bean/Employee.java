@@ -6,6 +6,8 @@ import java.util.Date;
  * Created by GISObject on 19/08/2017.
  */
 public final class Employee {
+    
+    private int employeeId;
 
     private String firstName;
 
@@ -13,9 +15,15 @@ public final class Employee {
 
     private String email;
 
-    private int employeeId;
-
     private Date hireDate;
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -39,14 +47,6 @@ public final class Employee {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
     }
 
     public Date getHireDate() {
